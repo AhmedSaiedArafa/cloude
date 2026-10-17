@@ -1,6 +1,8 @@
 const fs = require("fs/promises");
 const path = require("path");
 const { randomUUID } = require("crypto");
+const priorities = new Set(['Low', 'Medium', 'High']); 
+const statuses = new Set(['Open', 'Resolved']); 
 
 const DATA_FILE = path.join(__dirname, "..", "data", "issues.json");
 
@@ -49,4 +51,6 @@ module.exports = {
     createIssue,
     updateIssueStatus
 };
-ASY;
+function sendError(res, status, code, message) { 
+return res.status(status).json({ error: { code, message } }); 
+} ;
